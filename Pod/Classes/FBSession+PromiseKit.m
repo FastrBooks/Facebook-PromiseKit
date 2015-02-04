@@ -6,9 +6,18 @@
 //  Copyright (c) 2015 Kirils Sivokozs. All rights reserved.
 //
 
+#import "FBRequestConnection+PromiseKit.h"
 #import "FBSession+PromiseKit.h"
+#import <FacebookSDK/FacebookSDK.h>
 
 @implementation FBSession (PromiseKit)
+
++ (void)restoreSession
+{
+    if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
+        [FBSession openActiveSessionWithReadPermissions:@[@"public_profile"] allowLoginUI:NO];
+    }
+}
 
 + (void)closeActiveSession
 {
@@ -18,6 +27,37 @@
     }
 }
 
++ (PMKPromise *)fetchUserData
+{
+    return [PMKPromise new:^(PMKPromiseFulfiller fulfill, PMKPromiseRejecter reject) {
+        if (FBSession.activeSession.state == FBSessionStateOpen
+            || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
+            [FBRequestConnection startForMe].then(^(id result) {
+                fulfill(result);
+            }).catch(^(NSError *error) {
+                reject(error);
+            });
+        } else {
+            [FBSession openActiveSessionWithReadPermissions:@[@"public_profile"] allowLoginUI:YES].then(^(NSNumber *result) {
+                if ([result integerValue] == FBSessionStateOpen) {
+                    [FBRequestConnection startForMe].then(^(id result) {
+                        fulfill(result);
+                    }).catch(^(NSError *error) {
+                        reject(error);
+                    });
+                } else {
+                    NSError *error = [NSError errorWithDomain:FacebookSDKDomain
+                                                         code:FBErrorInvalid
+                                                     userInfo:nil];
+                    reject(error);
+                }
+            }).catch(^(NSError *error) {
+                reject(error);
+            });
+        }
+    }];
+}
+
 + (PMKPromise *)openActiveSessionWithReadPermissions:(NSArray *)readPermissions allowLoginUI:(BOOL)allowLoginUI
 {
     return [PMKPromise new:^(PMKPromiseFulfiller fulfill, PMKPromiseRejecter reject) {
@@ -25,7 +65,7 @@
             if (error) {
                 reject(error);
             } else {
-                fulfill(@[session , @(status)]);
+                fulfill(@(status));
             }
         }];
     }];
@@ -35,19 +75,14 @@
 + (PMKPromise *)requestNewReadPermissions:(NSArray *)readPermissions
 {
     return [PMKPromise new:^(PMKPromiseFulfiller fulfill, PMKPromiseRejecter reject) {
-        if ([readPermissions count] > 0){
-            [FBSession.activeSession
-             requestNewReadPermissions:readPermissions
-             completionHandler:^(FBSession *session, NSError *error) {
-                 if (!error) {
-                     fulfill(nil);
-                 } else {
-                     reject(error);
-                 }
-             }];
-        } else {
-            fulfill(nil);
-        }
+        [FBSession.activeSession requestNewReadPermissions:readPermissions
+                                         completionHandler:^(FBSession *session, NSError *error) {
+                                             if (!error) {
+                                                 fulfill(nil);
+                                             } else {
+                                                 reject(error);
+                                             }
+                                         }];
     }];
 }
 

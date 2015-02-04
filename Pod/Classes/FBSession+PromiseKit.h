@@ -11,6 +11,10 @@
 
 @interface FBSession (PromiseKit)
 
++ (void)restoreSession;
++ (void)closeActiveSession;
++ (PMKPromise *)fetchUserData;
++ (PMKPromise *)requestNewReadPermissions:(NSArray *)readPermissions;
 + (PMKPromise *)openActiveSessionWithReadPermissions:(NSArray *)readPermissions allowLoginUI:(BOOL)allowLoginUI;
 
 @end

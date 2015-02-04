@@ -17,8 +17,7 @@
         [FBRequestConnection startWithGraphPath:@"/me/permissions"
                               completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
                                   if (!error){
-                                      NSDictionary *currentPermissions= [(NSArray *)[result data] objectAtIndex:0];
-                                      fulfill(currentPermissions);
+                                      fulfill(result);
                                   } else {
                                       reject(error);
                                   }

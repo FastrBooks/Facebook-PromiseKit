@@ -11,4 +11,7 @@
 
 @interface FBRequestConnection (PromiseKit)
 
++ (PMKPromise *)requestMyCurrentPermissions;
++ (PMKPromise *)startForMe;
+
 @end
