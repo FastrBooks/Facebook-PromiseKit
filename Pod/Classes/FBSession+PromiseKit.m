@@ -29,35 +29,22 @@
 
 + (PMKPromise *)fetchUserData
 {
-    return [PMKPromise new:^(PMKPromiseFulfiller fulfill, PMKPromiseRejecter reject) {
-        if (FBSession.activeSession.state == FBSessionStateOpen
-            || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
-            [FBRequestConnection startForMe].then(^(id result) {
-                fulfill(result);
-            }).catch(^(NSError *error) {
-                reject(error);
-            });
-        } else {
-            [FBSession openActiveSessionWithReadPermissions:@[@"public_profile"] allowLoginUI:YES].then(^(NSNumber *result) {
-                if ([result integerValue] == FBSessionStateOpen) {
-                    [FBRequestConnection startForMe].then(^(id result) {
-                        fulfill(result);
-                    }).catch(^(NSError *error) {
-                        reject(error);
-                    });
-                } else {
-                    NSError *error = [NSError errorWithDomain:FacebookSDKDomain
-                                                         code:FBErrorInvalid
-                                                     userInfo:nil];
-                    reject(error);
-                }
-            }).catch(^(NSError *error) {
-                reject(error);
-            });
-        }
-    }];
+    if (FBSession.activeSession.state == FBSessionStateOpen
+        || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
+        return [FBRequestConnection startForMe];
+    } else {
+        return [FBSession openActiveSessionWithReadPermissions:@[@"public_profile"] allowLoginUI:YES].then(^(NSNumber *result) {
+            if ([result integerValue] == FBSessionStateOpen) {
+                return [FBRequestConnection startForMe];
+            } else {
+                NSError *error = [NSError errorWithDomain:FacebookSDKDomain
+                                                     code:FBErrorInvalid
+                                                 userInfo:nil];
+                return [PMKPromise promiseWithValue:error];
+            }
+        });
+    }
 }
-
 + (PMKPromise *)openActiveSessionWithReadPermissions:(NSArray *)readPermissions allowLoginUI:(BOOL)allowLoginUI
 {
     return [PMKPromise new:^(PMKPromiseFulfiller fulfill, PMKPromiseRejecter reject) {
