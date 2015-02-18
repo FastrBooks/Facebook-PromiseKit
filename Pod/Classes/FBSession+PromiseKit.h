@@ -13,8 +13,11 @@
 
 + (void)restoreSession;
 + (void)closeActiveSession;
-+ (PMKPromise *)fetchUserData;
++ (PMKPromise *)fetchUserDataUsingSystemAccount:(BOOL)usingAccount;
 + (PMKPromise *)requestNewReadPermissions:(NSArray *)readPermissions;
-+ (PMKPromise *)openActiveSessionWithReadPermissions:(NSArray *)readPermissions allowLoginUI:(BOOL)allowLoginUI;
++ (PMKPromise *)openActiveSessionWithReadPermissions:(NSArray *)readPermissions
+                                        allowLoginUI:(BOOL)allowLoginUI;
++ (PMKPromise *)openActiveSessionWithReadPermissions:(NSArray *)readPermissions
+                                       withBehaviour:(FBSessionLoginBehavior)behaviour;
 
 @end

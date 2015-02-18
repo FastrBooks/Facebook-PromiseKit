@@ -27,13 +27,19 @@
     }
 }
 
-+ (PMKPromise *)fetchUserData
++ (PMKPromise *)fetchUserDataUsingSystemAccount:(BOOL)usingAccount
 {
     if (FBSession.activeSession.state == FBSessionStateOpen
         || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
         return [FBRequestConnection startForMe];
     } else {
-        return [FBSession openActiveSessionWithReadPermissions:@[@"public_profile"] allowLoginUI:YES].then(^(NSNumber *result) {
+        NSArray *readPermissions = @[@"public_profile"];
+        PMKPromise *promise = usingAccount ?
+        [FBSession openActiveSessionWithReadPermissions:readPermissions
+                                          withBehaviour:FBSessionLoginBehaviorUseSystemAccountIfPresent] :
+        [FBSession openActiveSessionWithReadPermissions:readPermissions allowLoginUI:YES];
+        
+        return promise.then(^(NSNumber *result) {
             if ([result integerValue] == FBSessionStateOpen) {
                 return [FBRequestConnection startForMe];
             } else {
@@ -45,6 +51,7 @@
         });
     }
 }
+
 + (PMKPromise *)openActiveSessionWithReadPermissions:(NSArray *)readPermissions allowLoginUI:(BOOL)allowLoginUI
 {
     return [PMKPromise new:^(PMKPromiseFulfiller fulfill, PMKPromiseRejecter reject) {
@@ -55,6 +62,23 @@
                 fulfill(@(status));
             }
         }];
+    }];
+}
+
++ (PMKPromise *)openActiveSessionWithReadPermissions:(NSArray *)readPermissions
+                                       withBehaviour:(FBSessionLoginBehavior)behaviour
+{
+    return [PMKPromise new:^(PMKPromiseFulfiller fulfill, PMKPromiseRejecter reject) {
+        FBSession *facebookSession = [[FBSession alloc] initWithPermissions:[NSArray arrayWithObjects:@"public_profile", @"email",nil]];
+        [FBSession setActiveSession:facebookSession];
+        [facebookSession openWithBehavior:FBSessionLoginBehaviorUseSystemAccountIfPresent
+                        completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+                            if (!error) {
+                                fulfill(@(status));
+                            } else {
+                                reject(error);
+                            }
+                        }];
     }];
 }
 
