@@ -5,6 +5,8 @@
 [![License](https://img.shields.io/cocoapods/l/Facebook-PromiseKit.svg?style=flat)](http://cocoadocs.org/docsets/Facebook-PromiseKit)
 [![Platform](https://img.shields.io/cocoapods/p/Facebook-PromiseKit.svg?style=flat)](http://cocoadocs.org/docsets/Facebook-PromiseKit)
 
+Simple library that wraps some basic Facebook iOS SDK calls in fancy PromiseKit promises. Library also provides some convinience methods to make developer life easier. 
+
 ## Usage
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
