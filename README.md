@@ -11,8 +11,6 @@ Simple library that wraps some basic Facebook iOS SDK calls in fancy PromiseKit 
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
-## Requirements
-
 ## Installation
 
 Facebook-PromiseKit is available through [CocoaPods](http://cocoapods.org). To install
