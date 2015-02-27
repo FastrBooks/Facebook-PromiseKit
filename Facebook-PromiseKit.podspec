@@ -10,19 +10,13 @@
 Pod::Spec.new do |s|
   s.name             = "Facebook-PromiseKit"
   s.version          = "0.1.0"
-  s.summary          = "A short description of Facebook-PromiseKit."
-  s.description      = <<-DESC
-                       An optional longer description of Facebook-PromiseKit
-
-                       * Markdown format.
-                       * Don't worry about the indent, we strip it!
-                       DESC
+  s.summary          = "PromiseKit wrapper for Facebook iOS SDK."
+  s.description      = "Simple library that wraps some basic Facebook iOS SDK calls in fancy PromiseKit promises. Library also provides some convinience methods to make developer life easier."
   s.homepage         = "https://github.com/FastrBooks/Facebook-PromiseKit"
-  # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license          = 'MIT'
   s.author           = { "Kirils Sivokozs" => "kirils@fastrbooks.com" }
   s.source           = { :git => "https://github.com/FastrBooks/Facebook-PromiseKit.git", :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.social_media_url = 'https://twitter.com/staIkerrus'
 
   s.platform     = :ios, '7.0'
   s.requires_arc = true
@@ -32,9 +26,7 @@ Pod::Spec.new do |s|
     'Facebook-PromiseKit' => ['Pod/Assets/*.png']
   }
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.public_header_files = 'Pod/Classes/**/*.h'
   s.dependency 'Facebook-iOS-SDK'
   s.dependency 'PromiseKit'
 end
