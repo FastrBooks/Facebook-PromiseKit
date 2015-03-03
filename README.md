@@ -1,6 +1,6 @@
 # Facebook-PromiseKit
 
-[![CI Status](http://img.shields.io/travis/Kirils Sivokozs/Facebook-PromiseKit.svg?style=flat)](https://travis-ci.org/Kirils Sivokozs/Facebook-PromiseKit)
+[![CI Status](http://img.shields.io/travis/FastrBooks/Facebook-PromiseKit.svg?style=flat)](https://travis-ci.org/FastrBooks/Facebook-PromiseKit)
 [![Version](https://img.shields.io/cocoapods/v/Facebook-PromiseKit.svg?style=flat)](http://cocoadocs.org/docsets/Facebook-PromiseKit)
 [![License](https://img.shields.io/cocoapods/l/Facebook-PromiseKit.svg?style=flat)](http://cocoadocs.org/docsets/Facebook-PromiseKit)
 [![Platform](https://img.shields.io/cocoapods/p/Facebook-PromiseKit.svg?style=flat)](http://cocoadocs.org/docsets/Facebook-PromiseKit)
