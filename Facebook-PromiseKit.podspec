@@ -28,5 +28,5 @@ Pod::Spec.new do |s|
 
   s.public_header_files = 'Pod/Classes/**/*.h'
   s.dependency 'Facebook-iOS-SDK'
-  s.dependency 'PromiseKit'
+  s.dependency 'PromiseKit/Promise', '~> 1.5'
 end
