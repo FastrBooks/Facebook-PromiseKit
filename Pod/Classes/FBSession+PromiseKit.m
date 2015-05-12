@@ -131,19 +131,20 @@
     }];
 }
 
-+ (PMKPromise *)requestPostPermissionIfNeeded
++ (PMKPromise *)requestPublishPermissionIfNeeded
 {
     NSString *publishAction = @"publish_actions";
     if ([[FBSession activeSession] isOpen]) {
         if ([[[FBSession activeSession] permissions] indexOfObject:publishAction] == NSNotFound) {
-            return [FBSession requestNewPublishPermissions:@[publishAction] defaultAudience:FBSessionDefaultAudienceFriends];
+            return [FBSession requestNewPublishPermissions:@[publishAction]
+                                           defaultAudience:FBSessionDefaultAudienceFriends];
         } else {
             return [PMKPromise promiseWithValue:nil];
         }
     } else {
         return [FBSession openActiveSessionWithPublishPermissions:@[publishAction]
-                                           defaultAudience:FBSessionDefaultAudienceFriends
-                                              allowLoginUI:YES];
+                                                  defaultAudience:FBSessionDefaultAudienceFriends
+                                                     allowLoginUI:YES];
     }
 }
 
