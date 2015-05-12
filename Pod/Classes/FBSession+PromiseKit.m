@@ -97,4 +97,54 @@
     }];
 }
 
++ (PMKPromise *)requestNewPublishPermissions:(NSArray *)writePermissions
+                             defaultAudience:(FBSessionDefaultAudience)defaultAudience
+{
+    return [PMKPromise new:^(PMKPromiseFulfiller fulfill, PMKPromiseRejecter reject) {
+        [FBSession.activeSession requestNewPublishPermissions:writePermissions
+                                              defaultAudience:defaultAudience
+                                            completionHandler:^(FBSession *session, NSError *error) {
+                                                if (!error && session.state == FBSessionStateOpen) {
+                                                    fulfill(nil);
+                                                } else {
+                                                    reject(error);
+                                                }
+                                            }];
+    }];
+}
+
++ (PMKPromise *)openActiveSessionWithPublishPermissions:(NSArray *)publishPermissions
+                                defaultAudience:(FBSessionDefaultAudience)defaultAudience
+                                   allowLoginUI:(BOOL)allowLoginUI
+{
+    return [PMKPromise new:^(PMKPromiseFulfiller fulfill, PMKPromiseRejecter reject) {
+        [FBSession openActiveSessionWithPublishPermissions:publishPermissions
+                                           defaultAudience:defaultAudience
+                                              allowLoginUI:allowLoginUI
+                                         completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+                                             if (!error && status == FBSessionStateOpen) {
+                                                 fulfill(nil);
+                                             }else{
+                                                 reject(error);
+                                             }
+                                         }];
+    }];
+}
+
++ (PMKPromise *)requestPostPermissionIfNeeded
+{
+    NSString *publishAction = @"publish_actions";
+    if ([[FBSession activeSession] isOpen]) {
+        if ([[[FBSession activeSession] permissions] indexOfObject:publishAction] == NSNotFound) {
+            return [FBSession requestNewPublishPermissions:@[publishAction] defaultAudience:FBSessionDefaultAudienceFriends];
+        } else {
+            return [PMKPromise promiseWithValue:nil];
+        }
+    } else {
+        return [FBSession openActiveSessionWithPublishPermissions:@[publishAction]
+                                           defaultAudience:FBSessionDefaultAudienceFriends
+                                              allowLoginUI:YES];
+    }
+}
+
 @end

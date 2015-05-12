@@ -19,5 +19,11 @@
                                         allowLoginUI:(BOOL)allowLoginUI;
 + (PMKPromise *)openActiveSessionWithReadPermissions:(NSArray *)readPermissions
                                        withBehaviour:(FBSessionLoginBehavior)behaviour;
++ (PMKPromise *)requestNewPublishPermissions:(NSArray *)writePermissions
+                             defaultAudience:(FBSessionDefaultAudience)defaultAudience;
++ (PMKPromise *)openActiveSessionWithPublishPermissions:(NSArray *)publishPermissions
+                                        defaultAudience:(FBSessionDefaultAudience)defaultAudience
+                                           allowLoginUI:(BOOL)allowLoginUI;
++ (PMKPromise *)requestPostPermissionIfNeeded;
 
 @end
