@@ -15,7 +15,7 @@
 + (void)restoreSession
 {
     if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
-        [FBSession openActiveSessionWithReadPermissions:@[@"public_profile"] allowLoginUI:NO];
+        [FBSession openActiveSessionWithReadPermissions:@[@"public_profile", @"email"] allowLoginUI:NO];
     }
 }
 
@@ -33,7 +33,7 @@
         || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
         return [FBRequestConnection startForMe];
     } else {
-        NSArray *readPermissions = @[@"public_profile"];
+        NSArray *readPermissions = @[@"public_profile", @"email"];
         PMKPromise *promise = usingAccount ?
         [FBSession openActiveSessionWithReadPermissions:readPermissions
                                           withBehaviour:FBSessionLoginBehaviorUseSystemAccountIfPresent] :
@@ -69,9 +69,9 @@
                                        withBehaviour:(FBSessionLoginBehavior)behaviour
 {
     return [PMKPromise new:^(PMKPromiseFulfiller fulfill, PMKPromiseRejecter reject) {
-        FBSession *facebookSession = [[FBSession alloc] initWithPermissions:[NSArray arrayWithObjects:@"public_profile", @"email",nil]];
+        FBSession *facebookSession = [[FBSession alloc] initWithPermissions:readPermissions];
         [FBSession setActiveSession:facebookSession];
-        [facebookSession openWithBehavior:FBSessionLoginBehaviorUseSystemAccountIfPresent
+        [facebookSession openWithBehavior:behaviour
                         completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
                             if (!error) {
                                 fulfill(@(status));
