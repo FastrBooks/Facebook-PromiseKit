@@ -148,4 +148,10 @@
     }
 }
 
++ (BOOL)hasPublishPermission
+{
+    return [[FBSession activeSession] isOpen] &&
+    [[[FBSession activeSession] permissions] indexOfObject:@"publish_actions"] != NSNotFound;
+}
+
 @end

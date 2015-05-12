@@ -24,6 +24,7 @@
 + (PMKPromise *)openActiveSessionWithPublishPermissions:(NSArray *)publishPermissions
                                         defaultAudience:(FBSessionDefaultAudience)defaultAudience
                                            allowLoginUI:(BOOL)allowLoginUI;
-+ (PMKPromise *)requestPublishPermissionIfNeeded;
 
++ (PMKPromise *)requestPublishPermissionIfNeeded;
++ (BOOL)hasPublishPermission;
 @end
