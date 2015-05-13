@@ -26,5 +26,5 @@
                                            allowLoginUI:(BOOL)allowLoginUI;
 
 + (PMKPromise *)requestPublishPermissionIfNeeded;
-+ (BOOL)hasPublishPermission;
++ (PMKPromise *)hasPublishPermission;
 @end

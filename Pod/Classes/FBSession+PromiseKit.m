@@ -104,7 +104,7 @@
         [FBSession.activeSession requestNewPublishPermissions:writePermissions
                                               defaultAudience:defaultAudience
                                             completionHandler:^(FBSession *session, NSError *error) {
-                                                if (!error && session.state == FBSessionStateOpen) {
+                                                if (!error) {
                                                     fulfill(nil);
                                                 } else {
                                                     reject(error);
@@ -122,9 +122,9 @@
                                            defaultAudience:defaultAudience
                                               allowLoginUI:allowLoginUI
                                          completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
-                                             if (!error && status == FBSessionStateOpen) {
+                                             if (!error) {
                                                  fulfill(nil);
-                                             }else{
+                                             } else {
                                                  reject(error);
                                              }
                                          }];
@@ -135,12 +135,14 @@
 {
     NSString *publishAction = @"publish_actions";
     if ([[FBSession activeSession] isOpen]) {
-        if ([[[FBSession activeSession] permissions] indexOfObject:publishAction] == NSNotFound) {
-            return [FBSession requestNewPublishPermissions:@[publishAction]
-                                           defaultAudience:FBSessionDefaultAudienceFriends];
-        } else {
-            return [PMKPromise promiseWithValue:nil];
-        }
+        return [FBSession hasPublishPermission].then(^(NSNumber *hasPermission){
+            if ([hasPermission boolValue]) {
+                return [PMKPromise promiseWithValue:nil];
+            } else {
+                return [FBSession requestNewPublishPermissions:@[publishAction]
+                                               defaultAudience:FBSessionDefaultAudienceFriends];
+            }
+        });
     } else {
         return [FBSession openActiveSessionWithPublishPermissions:@[publishAction]
                                                   defaultAudience:FBSessionDefaultAudienceFriends
@@ -148,10 +150,17 @@
     }
 }
 
-+ (BOOL)hasPublishPermission
++ (PMKPromise *)hasPublishPermission
 {
-    return [[FBSession activeSession] isOpen] &&
-    [[[FBSession activeSession] permissions] indexOfObject:@"publish_actions"] != NSNotFound;
+    return [FBRequestConnection requestMyCurrentPermissions].then(^(NSDictionary *response){
+        for (NSDictionary *permission in response[@"data"]) {
+            if ([permission[@"permission"] isEqualToString:@"publish_actions"] &&
+                [permission[@"status"] isEqualToString:@"declined"]) {
+                return [PMKPromise promiseWithValue:@(NO)];
+            }
+        }
+        return [PMKPromise promiseWithValue:@(YES)];
+    });
 }
 
 @end
