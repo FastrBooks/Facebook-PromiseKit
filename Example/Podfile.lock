@@ -12,24 +12,16 @@ PODS:
     - Facebook-iOS-SDK (~> 3.0)
     - PromiseKit/Promise (~> 1.5)
   - PromiseKit/Promise (1.5.3)
-  - Specta (0.3.0.beta1)
+  - Specta (1.0.1)
 
 DEPENDENCIES:
   - Expecta
   - Facebook-PromiseKit (from `../`)
-  - Specta (from `https://github.com/specta/specta.git`, tag `v0.3.0.beta1`)
+  - Specta
 
 EXTERNAL SOURCES:
   Facebook-PromiseKit:
     :path: "../"
-  Specta:
-    :git: https://github.com/specta/specta.git
-    :tag: v0.3.0.beta1
-
-CHECKOUT OPTIONS:
-  Specta:
-    :git: https://github.com/specta/specta.git
-    :tag: v0.3.0.beta1
 
 SPEC CHECKSUMS:
   Bolts: aac24961496d504aa56fc267cde95162a71bac39
@@ -37,6 +29,6 @@ SPEC CHECKSUMS:
   Facebook-iOS-SDK: cd87f0b2f0c1d9574b44e8fa2baacc275524bac3
   Facebook-PromiseKit: 085f9c6cb335cbf002bf607302ca17301041d52c
   PromiseKit: 7ecae7c190ab92ae00aae6ba7f88942107532b8f
-  Specta: d2158a483ad179e5f8d3a29f75ff4fc0ff6fab16
+  Specta: 097be314a75de103703a3bf9a529dc1a398509d7
 
 COCOAPODS: 0.37.2
