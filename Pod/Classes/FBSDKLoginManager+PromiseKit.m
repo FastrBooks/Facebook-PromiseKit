@@ -36,10 +36,12 @@
                 return [FBSDKGraphRequest startForMe];
             } else {
                 NSError *error = [NSError errorWithDomain:FBSDKLoginErrorDomain
-                                                     code:0
+                                                     code:CustomFacebookErrorTypeNoToken
                                                  userInfo:nil];
                 return [PMKPromise promiseWithValue:error];
             }
+        }).catch(^(NSError *error){
+            return [PMKPromise promiseWithValue:error];
         });
     }
 }
@@ -51,11 +53,11 @@
         FBSDKLoginManager *manager = [[FBSDKLoginManager alloc] init];
         manager.loginBehavior = behaviour;
         [manager logInWithReadPermissions:readPermissions handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
-            if (!error) {
-                fulfill(result.token);
-            } else {
+            [FBSDKLoginManager handleLoginResult:result andError:error].then(^(FBSDKAccessToken *token){
+                fulfill(token);
+            }).catch(^(NSError *error){
                 reject(error);
-            }
+            });
         }];
     }];
 }
@@ -66,11 +68,11 @@
     return [PMKPromise new:^(PMKPromiseFulfiller fulfill, PMKPromiseRejecter reject) {
         FBSDKLoginManager *manager = [[FBSDKLoginManager alloc] init];
         [manager logInWithPublishPermissions:writePermissions handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
-            if (!error) {
-                fulfill(nil);
-            } else {
+            [FBSDKLoginManager handleLoginResult:result andError:error].then(^(FBSDKAccessToken *token){
+                fulfill(token);
+            }).catch(^(NSError *error){
                 reject(error);
-            }
+            });
         }];
     }];
 }
@@ -83,11 +85,11 @@
         FBSDKLoginManager *manager = [[FBSDKLoginManager alloc] init];
         manager.defaultAudience  = defaultAudience;
         [manager logInWithPublishPermissions:publishPermissions handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
-            if (!error) {
-                fulfill(nil);
-            } else {
+            [FBSDKLoginManager handleLoginResult:result andError:error].then(^(FBSDKAccessToken *token){
+                fulfill(token);
+            }).catch(^(NSError *error){
                 reject(error);
-            }
+            });
         }];
     }];
 }
@@ -122,6 +124,33 @@
         }
         return [PMKPromise promiseWithValue:@(YES)];
     });
+}
+
++ (PMKPromise *)handleLoginResult:(FBSDKLoginManagerLoginResult *)result andError:(NSError *)error
+{
+    if (error) {
+        return [PMKPromise promiseWithValue:error];
+    } else {
+        if (result.isCancelled) {
+            NSError *error = [NSError errorWithDomain:FBSDKLoginErrorDomain
+                                                 code:CustomFacebookErrorTypeCancelled
+                                             userInfo:nil];
+            return [PMKPromise promiseWithValue:error];
+        }
+        if (!result.token) {
+            NSError *error = [NSError errorWithDomain:FBSDKLoginErrorDomain
+                                                 code:CustomFacebookErrorTypeNoToken
+                                             userInfo:nil];
+            return [PMKPromise promiseWithValue:error];
+        }
+        if (result.token) {
+            return [PMKPromise promiseWithValue:result.token];
+        }
+        NSError *error = [NSError errorWithDomain:FBSDKLoginErrorDomain
+                                             code:CustomFacebookErrorTypeUnknown
+                                         userInfo:nil];
+        return [PMKPromise promiseWithValue:error];
+    }
 }
 
 @end

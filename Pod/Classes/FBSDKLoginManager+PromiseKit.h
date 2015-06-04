@@ -9,6 +9,12 @@
 #import "FBSDKLoginManager.h"
 #import <PromiseKit/Promise.h>
 
+typedef NS_ENUM(NSInteger, CustomFacebookErrorType) {
+    CustomFacebookErrorTypeNoToken = -1,
+    CustomFacebookErrorTypeCancelled,
+    CustomFacebookErrorTypeUnknown
+};
+
 @interface FBSDKLoginManager (PromiseKit)
 
 + (void)closeActiveSession;
