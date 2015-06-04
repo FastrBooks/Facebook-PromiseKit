@@ -11,11 +11,8 @@
 
 @interface FBSDKLoginManager (PromiseKit)
 
-+ (void)restoreSession;
 + (void)closeActiveSession;
-+ (PMKPromise *)fetchUserDataUsingSystemAccount:(BOOL)usingAccount;
-+ (PMKPromise *)openActiveSessionWithReadPermissions:(NSArray *)readPermissions
-                                        allowLoginUI:(BOOL)allowLoginUI;
++ (PMKPromise *)fetchUserDataUsingSystemAccount;
 + (PMKPromise *)openActiveSessionWithReadPermissions:(NSArray *)readPermissions
                                        withBehaviour:(FBSDKLoginBehavior)behaviour;
 + (PMKPromise *)requestNewPublishPermissions:(NSArray *)writePermissions

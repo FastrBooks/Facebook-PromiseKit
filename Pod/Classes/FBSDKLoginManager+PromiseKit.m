@@ -15,32 +15,22 @@
 
 @implementation FBSDKLoginManager (PromiseKit)
 
-+ (void)restoreSession
-{
-    if (![FBSDKAccessToken currentAccessToken]) {
-        [FBSDKLoginManager openActiveSessionWithReadPermissions:@[@"public_profile", @"email"] allowLoginUI:NO];
-    }
-}
-
 + (void)closeActiveSession
 {
     if ([FBSDKAccessToken currentAccessToken]) {
-        FBSDKLoginManager *logMeOut = [[FBSDKLoginManager alloc] init];
-        [logMeOut logOut];
+        FBSDKLoginManager *manager = [[FBSDKLoginManager alloc] init];
+        [manager logOut];
     }
 }
 
-+ (PMKPromise *)fetchUserDataUsingSystemAccount:(BOOL)usingAccount
++ (PMKPromise *)fetchUserDataUsingSystemAccount
 {
     if ([FBSDKAccessToken currentAccessToken]) {
         return [FBSDKGraphRequest startForMe];
     } else {
         NSArray *readPermissions = @[@"public_profile", @"email"];
-        PMKPromise *promise = usingAccount ?
-        [FBSDKLoginManager openActiveSessionWithReadPermissions:readPermissions
-                                          withBehaviour:FBSDKLoginBehaviorSystemAccount] :
-        [FBSDKLoginManager openActiveSessionWithReadPermissions:readPermissions allowLoginUI:YES];
-        
+        PMKPromise *promise = [FBSDKLoginManager openActiveSessionWithReadPermissions:readPermissions
+                                                                        withBehaviour:FBSDKLoginBehaviorSystemAccount];
         return promise.then(^(FBSDKAccessToken *token) {
             if (token) {
                 return [FBSDKGraphRequest startForMe];
@@ -52,20 +42,6 @@
             }
         });
     }
-}
-
-+ (PMKPromise *)openActiveSessionWithReadPermissions:(NSArray *)readPermissions allowLoginUI:(BOOL)allowLoginUI
-{
-    return [PMKPromise new:^(PMKPromiseFulfiller fulfill, PMKPromiseRejecter reject) {
-        FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
-        [login logInWithReadPermissions:readPermissions handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
-            if (error) {
-                reject(error);
-            } else {
-                fulfill(result.token);
-            }
-        }];
-    }];
 }
 
 + (PMKPromise *)openActiveSessionWithReadPermissions:(NSArray *)readPermissions
