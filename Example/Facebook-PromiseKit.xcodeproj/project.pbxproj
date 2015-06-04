@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		199E73861A7BEB2500E12B4D /* FBRequestConnection+PromiseKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 199E73851A7BEB2500E12B4D /* FBRequestConnection+PromiseKit.m */; };
-		19D73FB81A7BE1CC0005BA98 /* FBSession+PromiseKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D73FB71A7BE1CC0005BA98 /* FBSession+PromiseKit.m */; };
+		199E73861A7BEB2500E12B4D /* FBSDKGraphRequest+PromiseKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 199E73851A7BEB2500E12B4D /* FBSDKGraphRequest+PromiseKit.m */; };
+		19D73FB81A7BE1CC0005BA98 /* FBSDKLoginManager+PromiseKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D73FB71A7BE1CC0005BA98 /* FBSDKLoginManager+PromiseKit.m */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -41,11 +41,11 @@
 /* Begin PBXFileReference section */
 		078CFC286C9A7B8E195F1606 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		0A5777686BA04D21A1F3791A /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		199E73841A7BEB2500E12B4D /* FBRequestConnection+PromiseKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FBRequestConnection+PromiseKit.h"; path = "../../Pod/Classes/FBRequestConnection+PromiseKit.h"; sourceTree = "<group>"; };
-		199E73851A7BEB2500E12B4D /* FBRequestConnection+PromiseKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FBRequestConnection+PromiseKit.m"; path = "../../Pod/Classes/FBRequestConnection+PromiseKit.m"; sourceTree = "<group>"; };
+		199E73841A7BEB2500E12B4D /* FBSDKGraphRequest+PromiseKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FBSDKGraphRequest+PromiseKit.h"; path = "../../Pod/Classes/FBSDKGraphRequest+PromiseKit.h"; sourceTree = "<group>"; };
+		199E73851A7BEB2500E12B4D /* FBSDKGraphRequest+PromiseKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FBSDKGraphRequest+PromiseKit.m"; path = "../../Pod/Classes/FBSDKGraphRequest+PromiseKit.m"; sourceTree = "<group>"; };
 		199E73881A7F7AB000E12B4D /* Facebook-PromiseKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Facebook-PromiseKit.h"; path = "../../Pod/Classes/Facebook-PromiseKit.h"; sourceTree = "<group>"; };
-		19D73FB61A7BE1CC0005BA98 /* FBSession+PromiseKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FBSession+PromiseKit.h"; path = "../../Pod/Classes/FBSession+PromiseKit.h"; sourceTree = "<group>"; };
-		19D73FB71A7BE1CC0005BA98 /* FBSession+PromiseKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FBSession+PromiseKit.m"; path = "../../Pod/Classes/FBSession+PromiseKit.m"; sourceTree = "<group>"; };
+		19D73FB61A7BE1CC0005BA98 /* FBSDKLoginManager+PromiseKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FBSDKLoginManager+PromiseKit.h"; path = "../../Pod/Classes/FBSDKLoginManager+PromiseKit.h"; sourceTree = "<group>"; };
+		19D73FB71A7BE1CC0005BA98 /* FBSDKLoginManager+PromiseKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FBSDKLoginManager+PromiseKit.m"; path = "../../Pod/Classes/FBSDKLoginManager+PromiseKit.m"; sourceTree = "<group>"; };
 		3D95B498A11EA604883E71B6 /* Pods-Facebook-PromiseKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Facebook-PromiseKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-Facebook-PromiseKit/Pods-Facebook-PromiseKit.release.xcconfig"; sourceTree = "<group>"; };
 		47AFFB64845EA1F5EE421213 /* libPods-Facebook-PromiseKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Facebook-PromiseKit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		54D21765B9B00E33AE1D4BDC /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
@@ -105,10 +105,10 @@
 		19D73FB51A7BE0610005BA98 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				19D73FB61A7BE1CC0005BA98 /* FBSession+PromiseKit.h */,
-				19D73FB71A7BE1CC0005BA98 /* FBSession+PromiseKit.m */,
-				199E73841A7BEB2500E12B4D /* FBRequestConnection+PromiseKit.h */,
-				199E73851A7BEB2500E12B4D /* FBRequestConnection+PromiseKit.m */,
+				19D73FB61A7BE1CC0005BA98 /* FBSDKLoginManager+PromiseKit.h */,
+				19D73FB71A7BE1CC0005BA98 /* FBSDKLoginManager+PromiseKit.m */,
+				199E73841A7BEB2500E12B4D /* FBSDKGraphRequest+PromiseKit.h */,
+				199E73851A7BEB2500E12B4D /* FBSDKGraphRequest+PromiseKit.m */,
 				199E73881A7F7AB000E12B4D /* Facebook-PromiseKit.h */,
 			);
 			name = Classes;
@@ -383,9 +383,9 @@
 			files = (
 				6003F59E195388D20070C39A /* KSAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* KSViewController.m in Sources */,
-				199E73861A7BEB2500E12B4D /* FBRequestConnection+PromiseKit.m in Sources */,
+				199E73861A7BEB2500E12B4D /* FBSDKGraphRequest+PromiseKit.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
-				19D73FB81A7BE1CC0005BA98 /* FBSession+PromiseKit.m in Sources */,
+				19D73FB81A7BE1CC0005BA98 /* FBSDKLoginManager+PromiseKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

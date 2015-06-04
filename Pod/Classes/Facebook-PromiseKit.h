@@ -9,7 +9,7 @@
 #ifndef Facebook_PromiseKit_Facebook_PromiseKit_h
 #define Facebook_PromiseKit_Facebook_PromiseKit_h
 
-#import "FBSession+PromiseKit.h"
-#import "FBRequestConnection+PromiseKit.h"
+#import "FBSDKLoginManager+PromiseKit.h"
+#import "FBSDKGraphRequest+PromiseKit.h"
 
 #endif

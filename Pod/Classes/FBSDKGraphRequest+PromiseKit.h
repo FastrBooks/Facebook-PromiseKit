@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 Kirils Sivokozs. All rights reserved.
 //
 
-#import "FBRequestConnection.h"
+#import "FBSDKGraphRequest.h"
 #import <PromiseKit/Promise.h>
 
-@interface FBRequestConnection (PromiseKit)
+@interface FBSDKGraphRequest (PromiseKit)
 
 + (PMKPromise *)requestMyCurrentPermissions;
 + (PMKPromise *)startForMe;

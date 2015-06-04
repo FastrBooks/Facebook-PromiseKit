@@ -6,11 +6,20 @@ PODS:
     - Bolts/Tasks
   - Bolts/Tasks (1.1.5)
   - Expecta (1.0.0)
-  - Facebook-iOS-SDK (3.23.2):
-    - Bolts (~> 1.0)
   - Facebook-PromiseKit (0.1.0):
-    - Facebook-iOS-SDK (~> 3.0)
+    - FBSDKLoginKit
     - PromiseKit/Promise (~> 1.5)
+  - FBSDKCoreKit (4.2.0):
+    - Bolts (~> 1.1)
+    - FBSDKCoreKit/arc (= 4.2.0)
+    - FBSDKCoreKit/no-arc (= 4.2.0)
+  - FBSDKCoreKit/arc (4.2.0):
+    - Bolts (~> 1.1)
+  - FBSDKCoreKit/no-arc (4.2.0):
+    - Bolts (~> 1.1)
+    - FBSDKCoreKit/arc
+  - FBSDKLoginKit (4.2.0):
+    - FBSDKCoreKit
   - PromiseKit/Promise (1.5.3)
   - Specta (1.0.1)
 
@@ -26,8 +35,9 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Bolts: aac24961496d504aa56fc267cde95162a71bac39
   Expecta: 32604574add2c46a36f8d2f716b6c5736eb75024
-  Facebook-iOS-SDK: cd87f0b2f0c1d9574b44e8fa2baacc275524bac3
-  Facebook-PromiseKit: 085f9c6cb335cbf002bf607302ca17301041d52c
+  Facebook-PromiseKit: efc91f2bac21cb30bfd7c6651652bc1d9380cc2c
+  FBSDKCoreKit: 84b3616a361801f190e43a9909caead7bb6087c7
+  FBSDKLoginKit: 57e37106af12c9e264e473dcb75d7decdbb07fe4
   PromiseKit: 7ecae7c190ab92ae00aae6ba7f88942107532b8f
   Specta: 097be314a75de103703a3bf9a529dc1a398509d7
 
