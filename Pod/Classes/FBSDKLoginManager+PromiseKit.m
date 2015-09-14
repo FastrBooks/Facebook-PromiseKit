@@ -23,14 +23,15 @@
     }
 }
 
-+ (PMKPromise *)fetchUserDataUsingSystemAccount
++ (PMKPromise *)fetchUserDataUsingSystemAccountFromController:(UIViewController *)controller
 {
     if ([FBSDKAccessToken currentAccessToken]) {
         return [FBSDKGraphRequest startForMe];
     } else {
         NSArray *readPermissions = @[@"public_profile", @"email"];
         PMKPromise *promise = [FBSDKLoginManager openActiveSessionWithReadPermissions:readPermissions
-                                                                        withBehaviour:FBSDKLoginBehaviorSystemAccount];
+                                                                        withBehaviour:FBSDKLoginBehaviorSystemAccount
+                               fromController:controller];
         return promise.then(^(FBSDKAccessToken *token) {
             if (token) {
                 return [FBSDKGraphRequest startForMe];
@@ -48,53 +49,65 @@
 
 + (PMKPromise *)openActiveSessionWithReadPermissions:(NSArray *)readPermissions
                                        withBehaviour:(FBSDKLoginBehavior)behaviour
+                                      fromController:(UIViewController *)controller
 {
     return [PMKPromise new:^(PMKPromiseFulfiller fulfill, PMKPromiseRejecter reject) {
         FBSDKLoginManager *manager = [[FBSDKLoginManager alloc] init];
         manager.loginBehavior = behaviour;
-        [manager logInWithReadPermissions:readPermissions handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
-            [FBSDKLoginManager handleLoginResult:result andError:error].then(^(FBSDKAccessToken *token){
-                fulfill(token);
-            }).catch(^(NSError *error){
-                reject(error);
-            });
-        }];
+        [manager logInWithReadPermissions:readPermissions
+                       fromViewController:controller
+                                  handler:
+         ^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+             [FBSDKLoginManager handleLoginResult:result andError:error].then(^(FBSDKAccessToken *token){
+                 fulfill(token);
+             }).catch(^(NSError *error){
+                 reject(error);
+             });
+         }];
     }];
 }
 
 + (PMKPromise *)requestNewPublishPermissions:(NSArray *)writePermissions
                              defaultAudience:(FBSDKDefaultAudience)defaultAudience
+                              fromController:(UIViewController *)controller
 {
     return [PMKPromise new:^(PMKPromiseFulfiller fulfill, PMKPromiseRejecter reject) {
         FBSDKLoginManager *manager = [[FBSDKLoginManager alloc] init];
-        [manager logInWithPublishPermissions:writePermissions handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
-            [FBSDKLoginManager handleLoginResult:result andError:error].then(^(FBSDKAccessToken *token){
-                fulfill(token);
-            }).catch(^(NSError *error){
-                reject(error);
-            });
-        }];
+        [manager logInWithReadPermissions:writePermissions
+                       fromViewController:controller
+                                  handler:
+         ^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+             [FBSDKLoginManager handleLoginResult:result andError:error].then(^(FBSDKAccessToken *token){
+                 fulfill(token);
+             }).catch(^(NSError *error){
+                 reject(error);
+             });
+         }];
     }];
 }
 
 + (PMKPromise *)openActiveSessionWithPublishPermissions:(NSArray *)publishPermissions
-                                defaultAudience:(FBSDKDefaultAudience)defaultAudience
-                                   allowLoginUI:(BOOL)allowLoginUI
+                                        defaultAudience:(FBSDKDefaultAudience)defaultAudience
+                                           allowLoginUI:(BOOL)allowLoginUI
+                                         fromController:(UIViewController *)controller
 {
     return [PMKPromise new:^(PMKPromiseFulfiller fulfill, PMKPromiseRejecter reject) {
         FBSDKLoginManager *manager = [[FBSDKLoginManager alloc] init];
         manager.defaultAudience  = defaultAudience;
-        [manager logInWithPublishPermissions:publishPermissions handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
-            [FBSDKLoginManager handleLoginResult:result andError:error].then(^(FBSDKAccessToken *token){
-                fulfill(token);
-            }).catch(^(NSError *error){
-                reject(error);
-            });
-        }];
+        [manager logInWithPublishPermissions:publishPermissions
+                          fromViewController:controller
+                                     handler:
+         ^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+             [FBSDKLoginManager handleLoginResult:result andError:error].then(^(FBSDKAccessToken *token){
+                 fulfill(token);
+             }).catch(^(NSError *error){
+                 reject(error);
+             });
+         }];
     }];
 }
 
-+ (PMKPromise *)requestPublishPermissionIfNeeded
++ (PMKPromise *)requestPublishPermissionIfNeededFromController:(UIViewController *)controller
 {
     NSString *publishAction = @"publish_actions";
     if ([FBSDKAccessToken currentAccessToken]) {
@@ -103,13 +116,15 @@
                 return [PMKPromise promiseWithValue:nil];
             } else {
                 return [FBSDKLoginManager requestNewPublishPermissions:@[publishAction]
-                                                       defaultAudience:FBSDKDefaultAudienceFriends];
+                                                       defaultAudience:FBSDKDefaultAudienceFriends
+                                                        fromController:controller];
             }
         });
     } else {
         return [FBSDKLoginManager openActiveSessionWithPublishPermissions:@[publishAction]
                                                           defaultAudience:FBSDKDefaultAudienceFriends
-                                                             allowLoginUI:YES];
+                                                             allowLoginUI:YES
+                                                           fromController:controller];
     }
 }
 

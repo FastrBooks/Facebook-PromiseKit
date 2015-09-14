@@ -1,27 +1,27 @@
 PODS:
-  - Bolts (1.1.5):
-    - Bolts/AppLinks (= 1.1.5)
-    - Bolts/Tasks (= 1.1.5)
-  - Bolts/AppLinks (1.1.5):
+  - Bolts (1.2.2):
+    - Bolts/AppLinks (= 1.2.2)
+    - Bolts/Tasks (= 1.2.2)
+  - Bolts/AppLinks (1.2.2):
     - Bolts/Tasks
-  - Bolts/Tasks (1.1.5)
-  - Expecta (1.0.0)
+  - Bolts/Tasks (1.2.2)
+  - Expecta (1.0.3)
   - Facebook-PromiseKit (0.1.0):
-    - FBSDKLoginKit
+    - FBSDKLoginKit (~> 4.6.0)
     - PromiseKit/Promise (~> 1.5)
-  - FBSDKCoreKit (4.2.0):
+  - FBSDKCoreKit (4.6.0):
     - Bolts (~> 1.1)
-    - FBSDKCoreKit/arc (= 4.2.0)
-    - FBSDKCoreKit/no-arc (= 4.2.0)
-  - FBSDKCoreKit/arc (4.2.0):
+    - FBSDKCoreKit/arc (= 4.6.0)
+    - FBSDKCoreKit/no-arc (= 4.6.0)
+  - FBSDKCoreKit/arc (4.6.0):
     - Bolts (~> 1.1)
-  - FBSDKCoreKit/no-arc (4.2.0):
+  - FBSDKCoreKit/no-arc (4.6.0):
     - Bolts (~> 1.1)
     - FBSDKCoreKit/arc
-  - FBSDKLoginKit (4.2.0):
+  - FBSDKLoginKit (4.6.0):
     - FBSDKCoreKit
-  - PromiseKit/Promise (1.5.3)
-  - Specta (1.0.1)
+  - PromiseKit/Promise (1.6.0)
+  - Specta (1.0.3)
 
 DEPENDENCIES:
   - Expecta
@@ -33,12 +33,12 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Bolts: aac24961496d504aa56fc267cde95162a71bac39
-  Expecta: 32604574add2c46a36f8d2f716b6c5736eb75024
-  Facebook-PromiseKit: efc91f2bac21cb30bfd7c6651652bc1d9380cc2c
-  FBSDKCoreKit: 84b3616a361801f190e43a9909caead7bb6087c7
-  FBSDKLoginKit: 57e37106af12c9e264e473dcb75d7decdbb07fe4
-  PromiseKit: 7ecae7c190ab92ae00aae6ba7f88942107532b8f
-  Specta: 097be314a75de103703a3bf9a529dc1a398509d7
+  Bolts: 20a2bd788273360cb1e31530dc19b8544eef2544
+  Expecta: 9d1bff6c8b0eeee73a166a2ee898892478927a15
+  Facebook-PromiseKit: d8064aa1deffc8b13f921ddc995b42a424675fea
+  FBSDKCoreKit: 9954492d90c5fd65ae831395697a1660360d61f1
+  FBSDKLoginKit: 3d07febbfa884b9878cacba54f705bb41f07d4b6
+  PromiseKit: 6be651503d4af22830b5313be993c5a0ef77bf77
+  Specta: cf3e4188cf35375c3ee2cd03f8db8f1f4ef98234
 
-COCOAPODS: 0.37.2
+COCOAPODS: 0.38.2

@@ -18,15 +18,19 @@ typedef NS_ENUM(NSInteger, CustomFacebookErrorType) {
 @interface FBSDKLoginManager (PromiseKit)
 
 + (void)closeActiveSession;
-+ (PMKPromise *)fetchUserDataUsingSystemAccount;
++ (PMKPromise *)fetchUserDataUsingSystemAccountFromController:(UIViewController *)controller;
++ (PMKPromise *)requestPublishPermissionIfNeededFromController:(UIViewController *)controller;
+
 + (PMKPromise *)openActiveSessionWithReadPermissions:(NSArray *)readPermissions
-                                       withBehaviour:(FBSDKLoginBehavior)behaviour;
+                                       withBehaviour:(FBSDKLoginBehavior)behaviour
+                                      fromController:(UIViewController *)controller;
 + (PMKPromise *)requestNewPublishPermissions:(NSArray *)writePermissions
-                             defaultAudience:(FBSDKDefaultAudience)defaultAudience;
+                             defaultAudience:(FBSDKDefaultAudience)defaultAudience
+                              fromController:(UIViewController *)controller;
 + (PMKPromise *)openActiveSessionWithPublishPermissions:(NSArray *)publishPermissions
                                         defaultAudience:(FBSDKDefaultAudience)defaultAudience
-                                           allowLoginUI:(BOOL)allowLoginUI;
+                                           allowLoginUI:(BOOL)allowLoginUI
+                                         fromController:(UIViewController *)controller;
 
-+ (PMKPromise *)requestPublishPermissionIfNeeded;
 + (PMKPromise *)hasPublishPermission;
 @end
