@@ -6,13 +6,13 @@
 //  Copyright (c) 2015 Kirils Sivokozs. All rights reserved.
 //
 
-#import "FBSDKLoginManager.h"
+#import <FBSDKLoginKit/FBSDKLoginManager.h>
 #import <PromiseKit/Promise.h>
 
-typedef NS_ENUM(NSInteger, CustomFacebookErrorType) {
-    CustomFacebookErrorTypeNoToken = -1,
-    CustomFacebookErrorTypeCancelled,
-    CustomFacebookErrorTypeUnknown
+typedef NS_ENUM(NSInteger, KSCustomFacebookErrorType) {
+    KSCustomFacebookErrorTypeNoToken = -1,
+    KSCustomFacebookErrorTypeCancelled,
+    KSCustomFacebookErrorTypeUnknown
 };
 
 @interface FBSDKLoginManager (PromiseKit)

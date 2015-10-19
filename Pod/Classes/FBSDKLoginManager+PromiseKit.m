@@ -37,7 +37,7 @@
                 return [FBSDKGraphRequest startForMe];
             } else {
                 NSError *error = [NSError errorWithDomain:FBSDKLoginErrorDomain
-                                                     code:CustomFacebookErrorTypeNoToken
+                                                     code:KSCustomFacebookErrorTypeNoToken
                                                  userInfo:nil];
                 return [PMKPromise promiseWithValue:error];
             }
@@ -148,13 +148,13 @@
     } else {
         if (result.isCancelled) {
             NSError *error = [NSError errorWithDomain:FBSDKLoginErrorDomain
-                                                 code:CustomFacebookErrorTypeCancelled
+                                                 code:KSCustomFacebookErrorTypeCancelled
                                              userInfo:nil];
             return [PMKPromise promiseWithValue:error];
         }
         if (!result.token) {
             NSError *error = [NSError errorWithDomain:FBSDKLoginErrorDomain
-                                                 code:CustomFacebookErrorTypeNoToken
+                                                 code:KSCustomFacebookErrorTypeNoToken
                                              userInfo:nil];
             return [PMKPromise promiseWithValue:error];
         }
@@ -162,7 +162,7 @@
             return [PMKPromise promiseWithValue:result.token];
         }
         NSError *error = [NSError errorWithDomain:FBSDKLoginErrorDomain
-                                             code:CustomFacebookErrorTypeUnknown
+                                             code:KSCustomFacebookErrorTypeUnknown
                                          userInfo:nil];
         return [PMKPromise promiseWithValue:error];
     }
