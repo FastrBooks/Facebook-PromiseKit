@@ -27,6 +27,6 @@ Pod::Spec.new do |s|
   }
 
   s.public_header_files = 'Pod/Classes/**/*.h'
-  s.dependency 'FBSDKLoginKit', '~>4.6.0'
+  s.dependency 'FBSDKLoginKit', '~>4.8.0'
   s.dependency 'PromiseKit/Promise', '~>1.5'
 end
